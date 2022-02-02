@@ -1,5 +1,6 @@
 
-// --------DELETION IN BINARY SEARCH TREE--------
+
+   // --------DELETION IN BINARY SEARCH TREE--------
 
 #include "bits/stdc++.h"
 using namespace std;
@@ -16,18 +17,21 @@ using namespace std;
      }
  };
  
+ 
+    Node* ino_order_succ(Node*root){
+        Node*curr = root;
+        while(curr && curr->left != NULL){
+            curr = curr->left;
+            
+        }
+        
+        return curr;
+    }
+ 
 //   ----------delete function for BST--------------
 
     Node*delete_in_bst(Node* root, int key){
-        // // base case------
         
-        // if(root==NULL){
-        //     return NULL;
-        // }
-        
-        // if(root->data == key){
-        //     return root;
-        // }
         
         // data > key--------
         
@@ -42,14 +46,36 @@ using namespace std;
     }     
     
     else {
-        if(root->data == key){
+        if(root->left == NULL){
             Node*temp = root->right;
             free(root);
+            return temp;
         }
+        else if(root->right == NULL){
+            Node*temp = root->left;
+            free(root);
+           return temp;
+    }
+       
+    //   case 3-----------
+    
+        Node*temp = ino_order_succ(root->right);
+        root->data=temp->data;
+root->right = delete_in_bst(root->right , temp->data);
+    }
+  return root;
     }
     
-    }
- 
+    // inorder function--------------
+    
+  void  inorder(Node*root){
+      if(root==NULL){
+          return;
+      }
+      inorder(root->left);
+      cout<<root->data<<" ";
+      inorder(root->right);
+  }
 
  int main()
 {
@@ -59,13 +85,12 @@ using namespace std;
    root->left->left = new Node(1);
    root->left->right = new Node(3);
    root->right->right = new Node(6);
-   
-  if(search_in_bst(root, 5) == NULL){
-      cout<<"key does not exist";
-      }
-     else{
-         cout<<"key exists";
-     }
+ 
+ inorder(root);
+ cout<<endl;
+ root = delete_in_bst(root, 5);
+ inorder(root);
+ cout<<endl;
 
     return 0;
 }
