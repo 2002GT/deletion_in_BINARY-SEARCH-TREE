@@ -18,9 +18,11 @@ using namespace std;
  };
  
  
-    Node* ino_order_succ(Node*root){
+    Node* ino_order_succ(Node*root)
+    {
         Node*curr = root;
-        while(curr && curr->left != NULL){
+        while(curr && curr->left != NULL)
+        {
             curr = curr->left;
             
         }
