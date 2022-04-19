@@ -15,6 +15,7 @@ using namespace std;
          left= NULL;
          right= NULL;
      }
+     
  };
  
  
@@ -48,12 +49,14 @@ using namespace std;
     }     
     
     else {
-        if(root->left == NULL){
+        if(root->left == NULL)
+        {
             Node*temp = root->right;
             free(root);
             return temp;
         }
-        else if(root->right == NULL){
+        else if(root->right == NULL)
+        {
             Node*temp = root->left;
             free(root);
            return temp;
